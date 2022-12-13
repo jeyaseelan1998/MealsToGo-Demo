@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Pulled from github repo'
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
         stage('SonarQube analysis') {
@@ -14,7 +14,7 @@ pipeline {
                 withSonarQubeEnv('sonarqube-8.9') {
                     // If you have configured more than one global server connection, you can specify its name
                     //      sh "${scannerHome}/bin/sonar-scanner"
-                    sh 'mvn sonar:sonar'
+                    bat 'mvn sonar:sonar'
                 }
             }
         }
