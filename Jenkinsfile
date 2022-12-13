@@ -1,11 +1,13 @@
 pipeline {
     agent any
-
+    environment {
+        PATH = "$PATH:C:\tools\apache-maven-3.8.6"
+    }
     stages {
         stage('Build') {
             steps {
                 echo 'Pulled from github repo'
-                bat 'mvn clean package'
+                sh 'mvn clean package'
             }
         }
         stage('SonarQube analysis') {
@@ -14,7 +16,7 @@ pipeline {
                 withSonarQubeEnv('sonarqube-8.9') {
                     // If you have configured more than one global server connection, you can specify its name
                     //      sh "${scannerHome}/bin/sonar-scanner"
-                    bat 'mvn sonar:sonar'
+                    sh 'mvn sonar:sonar'
                 }
             }
         }
